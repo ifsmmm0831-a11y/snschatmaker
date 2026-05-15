@@ -600,6 +600,7 @@
 
     let editingElement = null;
     let myAvatarData = '', otherAvatarData = '';
+    let _applyingSettings = false;
 
     const els = {
         roomName:$('roomNameInput'), theme:$('themeSelector'), chkBorder:$('chkBorder'),
@@ -795,6 +796,7 @@
         return f?f[1]:"";
     }
     function changeTheme(){
+        if(_applyingSettings) return; // applySettings에서 호출 시 무한루프 방지
         const t=els.theme.value, pc=els.phone;
         // 프리셋 선택 시
         if(t.startsWith('preset:')){
@@ -1459,8 +1461,14 @@ ${bodyIndented}
     function savePresets(obj){ localStorage.setItem(PRESETS_KEY,JSON.stringify(obj)); }
 
     function gatherSettings(){
+        // 프리셋 선택 중이면 원래 저장된 기본 테마를 사용
+        let themeVal=els.theme.value;
+        if(themeVal.startsWith('preset:')){
+            const p=getPresets()[themeVal.substring(7)];
+            themeVal=(p&&p.theme)?p.theme:'theme-custom';
+        }
         const data={
-            theme: els.theme.value,
+            theme: themeVal,
             font: $('fontSelector').value,
             fontSize: $('fontSize').value,
             roomName: els.roomName.value,
@@ -1494,8 +1502,8 @@ ${bodyIndented}
         return data;
     }
     function applySettings(d){
+        _applyingSettings=true;
         if(d.roomName!=null) els.roomName.value=d.roomName;
-        if(d.theme!=null) els.theme.value=d.theme;
         if(d.font!=null) $('fontSelector').value=d.font;
         if(d.fontSize!=null) $('fontSize').value=d.fontSize;
         if(d.border!=null) els.chkBorder.checked=d.border;
@@ -1523,9 +1531,20 @@ ${bodyIndented}
         if(d.bgOverlayColor!=null) $('bgOverlayColor').value=d.bgOverlayColor;
         if(d.bgOverlayOpacity!=null) $('bgOverlayOpacity').value=d.bgOverlayOpacity;
         if(d.customColors){ for(const[k,id]of Object.entries(TCM)){ if(d.customColors[k])$(id).value=d.customColors[k]; } }
-        updateRoomName(); changeTheme(); toggleBorder(); applyPhoneWidth(); applyContainerMode();
-        applyBubbleShape(); applyFont(); applyFontSize(); toggleAvatarSettings(); applyAvatarSize();
-        updateBgEffects();
+        // 테마를 기본 테마로 설정 후 적용 (preset: 값이 아닌 실제 테마)
+        if(d.theme!=null) els.theme.value=d.theme;
+        // changeTheme 대신 직접 테마 적용 (무한루프 방지)
+        const t=els.theme.value;
+        const pc=els.phone;
+        const bubbleClasses=[]; pc.classList.forEach(c=>{if(c.startsWith('bubble-')||c==='no-tail')bubbleClasses.push(c);});
+        pc.className='phone-container '+t+' '+bubbleClasses.join(' ');
+        applyFont();
+        if(t==='theme-custom'){els.customPanel.style.display='block';updateCustomTheme();}
+        else{els.customPanel.style.display='none'; toggleBorder(); applyPhoneWidth();}
+        applyContainerMode();
+        applyBubbleShape(); applyFontSize(); toggleAvatarSettings(); applyAvatarSize();
+        updateBgEffects(); updateRoomName();
+        _applyingSettings=false;
     }
 
     function refreshPresetOptions(){
