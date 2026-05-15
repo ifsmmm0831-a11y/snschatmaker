@@ -8,9 +8,31 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&family=Nanum+Myeongjo:wght@400;700&display=swap');
-    @import url('https://cdn.jsdelivr.net/npm/ridibatang@0.0.1/ridibatang.css');
-    @import url('https://cdn.jsdelivr.net/gh/niceplugin/GangwonEduAll-otf@v0.0.1/gangwon-edu-all.css');
-    @import url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@latest/ONGLEUBParkDaHyun.css');
+
+    @font-face {
+        font-family: 'Ridibatang';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff');
+        font-weight: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'GangwonEduModu';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFLightA.woff') format('woff');
+        font-weight: 300;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'GangwonEduModu';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+        font-weight: 700;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'OngleipParkDahyeon';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2') format('woff2');
+        font-weight: normal;
+        font-display: swap;
+    }
 
     * { box-sizing: border-box; }
 
@@ -276,33 +298,41 @@
     </div>
     <div>
         <label for="themeSelector">테마 선택</label>
-        <select id="themeSelector">
-            <option value="theme-default">💜 기본 (보라)</option>
-            <option value="theme-kakao">💛 카카오 (노랑)</option>
-            <option value="theme-line">💚 라인 (초록)</option>
-            <option value="theme-mono">🖤 모노 (흑백)</option>
-            <option value="theme-custom">🎨 커스텀 (직접 꾸미기)</option>
-        </select>
+        <div style="display:flex; gap:4px; align-items:center;">
+            <select id="themeSelector" style="flex:1; min-width:0;">
+                <option value="theme-default">💜 기본 (보라)</option>
+                <option value="theme-kakao">💛 카카오 (노랑)</option>
+                <option value="theme-line">💚 라인 (초록)</option>
+                <option value="theme-mono">🖤 모노 (흑백)</option>
+                <option value="theme-custom">🎨 커스텀 (직접 꾸미기)</option>
+            </select>
+            <button class="btn" id="btnPresetSave" title="현재 설정 저장" style="width:32px; height:32px; padding:0; margin:0; background:#fd9644; color:white; font-size:1rem; line-height:32px; text-align:center; flex-shrink:0; border-radius:6px;">⭐</button>
+            <button class="btn" id="btnPresetDel" title="선택한 프리셋 삭제" style="width:32px; height:32px; padding:0; margin:0; background:#ff5252; color:white; font-size:1rem; line-height:32px; text-align:center; flex-shrink:0; border-radius:6px;">🗑️</button>
+        </div>
     </div>
     <div>
-        <label for="fontSelector">글꼴 선택</label>
-        <select id="fontSelector">
-            <option value="">🔤 기본 (설정없음)</option>
-            <option value="malgun" style="font-family:'Malgun Gothic','맑은 고딕'">맑은 고딕</option>
-            <option value="nanum-gothic" style="font-family:'Nanum Gothic'">나눔고딕</option>
-            <option value="nanum-myeongjo" style="font-family:'Nanum Myeongjo'">나눔명조</option>
-            <option value="ridi-batang" style="font-family:'RIDIBatang'">리디바탕</option>
-            <option value="gangwon-edu" style="font-family:'GangwonEduAll'">강원교육모두체</option>
-            <option value="ongleub-parkdahyun" style="font-family:'ONGLEUBParkDaHyun'">온글잎박다현체</option>
-            <option value="dotum" style="font-family:'Dotum','돋움'">돋움</option>
-            <option value="gulim" style="font-family:'Gulim','굴림'">굴림</option>
-            <option value="batang" style="font-family:'Batang','바탕'">바탕</option>
-            <option value="gungsuh" style="font-family:'Gungsuh','궁서'">궁서</option>
-            <option value="arial" style="font-family:Arial">Arial</option>
-            <option value="times" style="font-family:'Times New Roman'">Times New Roman</option>
-            <option value="georgia" style="font-family:Georgia">Georgia</option>
-            <option value="courier" style="font-family:'Courier New'">Courier New</option>
-        </select>
+        <label>글꼴</label>
+        <div style="display:flex; gap:4px; align-items:center;">
+            <select id="fontSelector" style="flex:1; min-width:0;">
+                <option value="">기본</option>
+                <option value="malgun">맑은 고딕</option>
+                <option value="nanum-gothic">나눔고딕</option>
+                <option value="nanum-myeongjo">나눔명조</option>
+                <option value="ridi-batang">리디바탕</option>
+                <option value="gangwon-edu">강원교육모두체</option>
+                <option value="ongleub-parkdahyun">온글잎박다현체</option>
+                <option value="dotum">돋움</option>
+                <option value="gulim">굴림</option>
+                <option value="batang">바탕</option>
+                <option value="gungsuh">궁서</option>
+                <option value="arial">Arial</option>
+                <option value="times">Times New Roman</option>
+                <option value="georgia">Georgia</option>
+                <option value="courier">Courier New</option>
+            </select>
+            <input type="number" id="fontSize" min="8" max="40" value="15" step="1" style="width:52px; flex-shrink:0; text-align:center; padding:6px 2px;" title="글꼴 크기 (px)">
+            <span style="font-size:0.75rem; color:#999; flex-shrink:0;">px</span>
+        </div>
     </div>
     <div style="margin-top:5px;">
         <label style="display:inline-flex; align-items:center; cursor:pointer;">
@@ -317,7 +347,7 @@
         <label>가로 너비 (px)</label>
         <div class="slider-row">
             <input type="range" id="phoneWidth" min="280" max="600" value="400" step="10">
-            <span class="slider-val" id="phoneWidthVal">400</span>
+            <input type="number" id="phoneWidthVal" min="280" max="600" value="400" step="10" style="width:52px; text-align:center; padding:2px 4px; font-size:0.8rem; font-weight:bold; color:#666; border:1px solid #ddd; border-radius:4px;">
         </div>
         <div style="margin-top:8px;">
             <label>세로 모드</label>
@@ -330,7 +360,7 @@
             <label>스크롤 높이 (px)</label>
             <div class="slider-row">
                 <input type="range" id="scrollHeight" min="300" max="900" value="600" step="50">
-                <span class="slider-val" id="scrollHeightVal">600</span>
+                <input type="number" id="scrollHeightVal" min="300" max="2000" value="600" step="10" style="width:52px; text-align:center; padding:2px 4px; font-size:0.8rem; font-weight:bold; color:#666; border:1px solid #ddd; border-radius:4px;">
             </div>
         </div>
     </div>
@@ -592,19 +622,28 @@
     });
 
     // ===== 1. 가로 너비 + 세로 모드 =====
-    function applyPhoneWidth() {
-        const w = $('phoneWidth').value;
-        $('phoneWidthVal').textContent = w;
+    function applyPhoneWidth(src) {
+        // src='slider' or 'input' or undefined
+        const slider=$('phoneWidth'), numInput=$('phoneWidthVal');
+        if(src==='input'){ slider.value=numInput.value; }
+        else{ numInput.value=slider.value; }
+        const w=parseInt(slider.value)||400;
         els.phone.style.setProperty('--phone-width', w+'px');
         els.phone.style.width = w+'px';
-        els.phoneWrapper.style.width = (parseInt(w)+16)+'px'; // border 포함
+        els.phoneWrapper.style.width = (w+16)+'px';
     }
     function applyContainerMode() {
         const mode = $q('input[name="containerMode"]:checked').value;
         if(mode==='scroll') { els.chatArea.classList.add('scroll-mode'); $('scrollHeightGroup').style.display='block'; applyScrollHeight(); }
         else { els.chatArea.classList.remove('scroll-mode'); els.chatArea.style.maxHeight=''; els.chatArea.style.minHeight='500px'; $('scrollHeightGroup').style.display='none'; }
     }
-    function applyScrollHeight() { const v=$('scrollHeight').value; $('scrollHeightVal').textContent=v; els.chatArea.style.maxHeight=v+'px'; els.chatArea.style.minHeight=v+'px'; }
+    function applyScrollHeight(src) {
+        const slider=$('scrollHeight'), numInput=$('scrollHeightVal');
+        if(src==='input'){ slider.value=numInput.value; }
+        else{ numInput.value=slider.value; }
+        const v=parseInt(slider.value)||600;
+        els.chatArea.style.maxHeight=v+'px'; els.chatArea.style.minHeight=v+'px';
+    }
 
     // ===== 2. 배경화면 =====
     function applyBgImage() {
@@ -717,13 +756,13 @@
     const CCI={'--header-bg':'customHeaderBg','--header-txt':'customHeaderTxt','--chat-bg':'customChatBg','--phone-border':'customBorderCol','--my-bg':'customMyBg','--my-txt':'customMyTxt','--other-bg':'customOtherBg','--other-txt':'customOtherTxt','--name-txt':'customNameTxt','--system-txt':'customSystemTxt','--date-bg':'customDateBg','--date-txt':'customDateTxt'};
     const TCM={hBg:'customHeaderBg',hTxt:'customHeaderTxt',cBg:'customChatBg',bCol:'customBorderCol',mBg:'customMyBg',mTxt:'customMyTxt',oBg:'customOtherBg',oTxt:'customOtherTxt',nTxt:'customNameTxt',sTxt:'customSystemTxt',dBg:'customDateBg',dTxt:'customDateTxt'};
     const FONT_MAP={
-        '':["'Noto Sans KR', sans-serif",""],
+        '':["'Noto Sans KR', sans-serif","@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');"],
         'malgun':["'Malgun Gothic','맑은 고딕', sans-serif",""],
-        'nanum-gothic':["'Nanum Gothic', sans-serif","https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap"],
-        'nanum-myeongjo':["'Nanum Myeongjo', serif","https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap"],
-        'ridi-batang':["'RIDIBatang', serif","https://cdn.jsdelivr.net/npm/ridibatang@0.0.1/ridibatang.css"],
-        'gangwon-edu':["'GangwonEduAll', sans-serif","https://cdn.jsdelivr.net/gh/niceplugin/GangwonEduAll-otf@v0.0.1/gangwon-edu-all.css"],
-        'ongleub-parkdahyun':["'ONGLEUBParkDaHyun', sans-serif","https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@latest/ONGLEUBParkDaHyun.css"],
+        'nanum-gothic':["'Nanum Gothic', sans-serif","@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');"],
+        'nanum-myeongjo':["'Nanum Myeongjo', serif","@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');"],
+        'ridi-batang':["'Ridibatang', serif","@font-face { font-family: 'Ridibatang'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff'); font-weight: normal; font-display: swap; }"],
+        'gangwon-edu':["'GangwonEduModu', sans-serif","@font-face { font-family: 'GangwonEduModu'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFLightA.woff') format('woff'); font-weight: 300; font-display: swap; }\n@font-face { font-family: 'GangwonEduModu'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff'); font-weight: 700; font-display: swap; }"],
+        'ongleub-parkdahyun':["'OngleipParkDahyeon', sans-serif","@font-face { font-family: 'OngleipParkDahyeon'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2') format('woff2'); font-weight: normal; font-display: swap; }"],
         'dotum':["'Dotum','돋움', sans-serif",""],
         'gulim':["'Gulim','굴림', sans-serif",""],
         'batang':["'Batang','바탕', serif",""],
@@ -738,6 +777,13 @@
         const f=FONT_MAP[v];
         if(f){els.phone.style.fontFamily=f[0];}
     }
+    function applyFontSize(){
+        const s=parseInt($('fontSize').value)||15;
+        $qa('#chatArea .message').forEach(el=>{el.style.fontSize=s+'px';});
+        $qa('#chatArea .system-msg').forEach(el=>{el.style.fontSize=Math.max(s-2,10)+'px';});
+        els.phone.dataset.fontSize=s;
+    }
+    function getCurrentFontSize(){ return $('fontSize').value||'15'; }
     function getCurrentFontFamily(){
         const v=$('fontSelector').value;
         const f=FONT_MAP[v];
@@ -750,9 +796,15 @@
     }
     function changeTheme(){
         const t=els.theme.value, pc=els.phone;
+        // 프리셋 선택 시
+        if(t.startsWith('preset:')){
+            loadPreset(t.substring(7));
+            return;
+        }
         // 테마 클래스만 교체 (bubble 클래스 유지)
         const bubbleClasses=[]; pc.classList.forEach(c=>{if(c.startsWith('bubble-')||c==='no-tail')bubbleClasses.push(c);});
         pc.className='phone-container '+t+' '+bubbleClasses.join(' ');
+        applyFont();
         if(t==='theme-custom'){els.customPanel.style.display='block';updateCustomTheme();}
         else{els.customPanel.style.display='none'; /* CSS 변수 유지하되 스타일 초기화하지 않음 */ toggleBorder(); applyPhoneWidth();}
     }
@@ -805,6 +857,7 @@
         else if(type==='part'){d.className='date-divider';d.innerHTML=`<span>${sc}</span>`;d.appendChild(mkDel());}
         d.addEventListener('click',function(e){if(e.target.closest('.btn-msg-delete'))return;startEdit(this);});
         ca.appendChild(d); setTimeout(()=>{ca.scrollTop=ca.scrollHeight;},10);
+        applyFontSize();
         updateMsgCount();
         resetInputsKeepType();
     }
@@ -1061,9 +1114,9 @@
         // 따라서 body 스타일은 사용하지 않고 .phone-container에 폰트만 지정.
         let css = `@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
 `;
-        // 선택한 글꼴의 추가 import
+        // 선택한 글꼴의 추가 font import/declaration
         const fontImport = getCurrentFontImport();
-        if(fontImport) css += `@import url('${fontImport}');\n`;
+        if(fontImport) css += fontImport + '\n';
 
         css += `
 /* ===== 폰 컨테이너 ===== */
@@ -1174,7 +1227,7 @@
 
 .message {
   padding: 10px 14px;
-  font-size: .95rem;
+  font-size: ${getCurrentFontSize()}px;
   line-height: 1.5;
   border-radius: 15px;
   position: relative;
@@ -1208,7 +1261,7 @@
 .system-msg {
   text-align: center;
   color: #888;
-  font-size: .8rem;
+  font-size: ${Math.max(parseInt(getCurrentFontSize())-2,10)}px;
   margin: 10px 0;
   font-style: italic;
   white-space: pre-wrap;
@@ -1400,11 +1453,142 @@ ${bodyIndented}
         navigator.clipboard.writeText(full).then(()=>showToast('📋 HTML 복사!','success')).catch(()=>showToast('복사 실패','error'));
     }
 
+    // ===== 설정 프리셋 (localStorage) =====
+    const PRESETS_KEY='chatmaker_presets';
+    function getPresets(){ try{return JSON.parse(localStorage.getItem(PRESETS_KEY))||{};}catch{return{};} }
+    function savePresets(obj){ localStorage.setItem(PRESETS_KEY,JSON.stringify(obj)); }
+
+    function gatherSettings(){
+        const data={
+            theme: els.theme.value,
+            font: $('fontSelector').value,
+            fontSize: $('fontSize').value,
+            roomName: els.roomName.value,
+            border: els.chkBorder.checked,
+            phoneWidth: $('phoneWidth').value,
+            containerMode: $q('input[name="containerMode"]:checked').value,
+            scrollHeight: $('scrollHeight').value,
+            showAvatar: $('chkShowAvatar').checked,
+            avatarSize: $('avatarSize').value,
+            myAvatarBg: $('myAvatarBg').value,
+            myAvatarInitial: $('myAvatarInitial').value,
+            otherAvatarBg: $('otherAvatarBg').value,
+            otherAvatarInitial: $('otherAvatarInitial').value,
+            bubbleShape: $q('input[name="bubbleShape"]:checked').value,
+            noTail: $('chkNoTail').checked,
+            cbRadius: $('cbRadius').value,
+            cbMyCorner: $('cbMyCorner').value,
+            cbOtherCorner: $('cbOtherCorner').value,
+            cbPadV: $('cbPadV').value,
+            cbPadH: $('cbPadH').value,
+            cbShadow: $('cbShadow').value,
+            cbBorderW: $('cbBorderW').value,
+            cbBorderColor: $('cbBorderColor').value,
+            customColors:{},
+            bgOpacity: $('bgOpacity').value,
+            bgBlur: $('bgBlur').value,
+            bgOverlayColor: $('bgOverlayColor').value,
+            bgOverlayOpacity: $('bgOverlayOpacity').value,
+        };
+        for(const[k,id]of Object.entries(TCM)) data.customColors[k]=$(id).value;
+        return data;
+    }
+    function applySettings(d){
+        if(d.roomName!=null) els.roomName.value=d.roomName;
+        if(d.theme!=null) els.theme.value=d.theme;
+        if(d.font!=null) $('fontSelector').value=d.font;
+        if(d.fontSize!=null) $('fontSize').value=d.fontSize;
+        if(d.border!=null) els.chkBorder.checked=d.border;
+        if(d.phoneWidth!=null) $('phoneWidth').value=d.phoneWidth;
+        if(d.containerMode!=null){ const r=$q(`input[name="containerMode"][value="${d.containerMode}"]`); if(r)r.checked=true; }
+        if(d.scrollHeight!=null) $('scrollHeight').value=d.scrollHeight;
+        if(d.showAvatar!=null) $('chkShowAvatar').checked=d.showAvatar;
+        if(d.avatarSize!=null) $('avatarSize').value=d.avatarSize;
+        if(d.myAvatarBg!=null) $('myAvatarBg').value=d.myAvatarBg;
+        if(d.myAvatarInitial!=null) $('myAvatarInitial').value=d.myAvatarInitial;
+        if(d.otherAvatarBg!=null) $('otherAvatarBg').value=d.otherAvatarBg;
+        if(d.otherAvatarInitial!=null) $('otherAvatarInitial').value=d.otherAvatarInitial;
+        if(d.bubbleShape!=null){ const r=$q(`input[name="bubbleShape"][value="${d.bubbleShape}"]`); if(r)r.checked=true; }
+        if(d.noTail!=null) $('chkNoTail').checked=d.noTail;
+        if(d.cbRadius!=null) $('cbRadius').value=d.cbRadius;
+        if(d.cbMyCorner!=null) $('cbMyCorner').value=d.cbMyCorner;
+        if(d.cbOtherCorner!=null) $('cbOtherCorner').value=d.cbOtherCorner;
+        if(d.cbPadV!=null) $('cbPadV').value=d.cbPadV;
+        if(d.cbPadH!=null) $('cbPadH').value=d.cbPadH;
+        if(d.cbShadow!=null) $('cbShadow').value=d.cbShadow;
+        if(d.cbBorderW!=null) $('cbBorderW').value=d.cbBorderW;
+        if(d.cbBorderColor!=null) $('cbBorderColor').value=d.cbBorderColor;
+        if(d.bgOpacity!=null) $('bgOpacity').value=d.bgOpacity;
+        if(d.bgBlur!=null) $('bgBlur').value=d.bgBlur;
+        if(d.bgOverlayColor!=null) $('bgOverlayColor').value=d.bgOverlayColor;
+        if(d.bgOverlayOpacity!=null) $('bgOverlayOpacity').value=d.bgOverlayOpacity;
+        if(d.customColors){ for(const[k,id]of Object.entries(TCM)){ if(d.customColors[k])$(id).value=d.customColors[k]; } }
+        updateRoomName(); changeTheme(); toggleBorder(); applyPhoneWidth(); applyContainerMode();
+        applyBubbleShape(); applyFont(); applyFontSize(); toggleAvatarSettings(); applyAvatarSize();
+        updateBgEffects();
+    }
+
+    function refreshPresetOptions(){
+        // 기존 프리셋 option 제거
+        $qa('#themeSelector option[data-preset]').forEach(o=>o.remove());
+        const sep=$('themePresetSep');
+        if(sep)sep.remove();
+        const presets=getPresets();
+        const keys=Object.keys(presets);
+        if(keys.length===0)return;
+        // 구분선 + 프리셋 옵션 추가
+        const sel=$('themeSelector');
+        const separator=document.createElement('option');
+        separator.disabled=true; separator.textContent='──── 내 프리셋 ────'; separator.id='themePresetSep';
+        sel.appendChild(separator);
+        keys.forEach(name=>{
+            const o=document.createElement('option');
+            o.value='preset:'+name;
+            o.textContent='⭐ '+name;
+            o.dataset.preset='1';
+            sel.appendChild(o);
+        });
+    }
+    function presetSave(){
+        const name=prompt('프리셋 이름을 입력하세요:');
+        if(!name||!name.trim())return;
+        const key=name.trim();
+        const presets=getPresets();
+        presets[key]=gatherSettings();
+        savePresets(presets);
+        refreshPresetOptions();
+        els.theme.value='preset:'+key;
+        showToast('⭐ "'+key+'" 저장 완료!','success');
+    }
+    function presetDelete(){
+        const v=els.theme.value;
+        if(!v.startsWith('preset:')){showToast('내 프리셋을 선택한 상태에서만 삭제할 수 있습니다.','error');return;}
+        const key=v.substring(7);
+        if(!confirm('"'+key+'" 프리셋을 삭제할까요?'))return;
+        const presets=getPresets();
+        delete presets[key];
+        savePresets(presets);
+        els.theme.value='theme-default';
+        changeTheme();
+        refreshPresetOptions();
+        showToast('🗑️ "'+key+'" 삭제 완료','info');
+    }
+    function loadPreset(name){
+        const presets=getPresets();
+        const d=presets[name];
+        if(!d){showToast('프리셋을 찾을 수 없습니다.','error');return;}
+        applySettings(d);
+        // 드롭다운을 프리셋으로 재선택 (changeTheme이 값을 바꿀 수 있으므로)
+        els.theme.value='preset:'+name;
+        showToast('⭐ "'+name+'" 적용!','success');
+    }
+
     // ===== 이벤트 =====
     function bind(){
         els.roomName.addEventListener('input',updateRoomName);
         els.theme.addEventListener('change',changeTheme);
         $('fontSelector').addEventListener('change',applyFont);
+        $('fontSize').addEventListener('input',applyFontSize);
         els.chkBorder.addEventListener('change',toggleBorder);
         $qa('input[name="msgType"]').forEach(r=>r.addEventListener('change',()=>{toggleInputs();syncQuickBar();}));
         for(const id of Object.values(CCI))$(id).addEventListener('input',updateCustomTheme);
@@ -1418,12 +1602,18 @@ ${bodyIndented}
         $('btnCopyHtml').addEventListener('click',copyHtml);
         $('btnApplyTheme').addEventListener('click',applyThemeCode);
         $('btnExportTheme').addEventListener('click',exportThemeCode);
+        $('btnPresetSave').addEventListener('click',presetSave);
+        $('btnPresetDel').addEventListener('click',presetDelete);
         $('txtUpload').addEventListener('change',handleTxtUpload);
-        // 너비
-        $('phoneWidth').addEventListener('input',applyPhoneWidth);
+        // 너비 (슬라이더 ↔ 숫자입력 양방향)
+        $('phoneWidth').addEventListener('input',()=>applyPhoneWidth('slider'));
+        $('phoneWidthVal').addEventListener('input',()=>applyPhoneWidth('input'));
+        $('phoneWidthVal').addEventListener('change',()=>applyPhoneWidth('input'));
         // 세로
         $qa('input[name="containerMode"]').forEach(r=>r.addEventListener('change',applyContainerMode));
-        $('scrollHeight').addEventListener('input',applyScrollHeight);
+        $('scrollHeight').addEventListener('input',()=>applyScrollHeight('slider'));
+        $('scrollHeightVal').addEventListener('input',()=>applyScrollHeight('input'));
+        $('scrollHeightVal').addEventListener('change',()=>applyScrollHeight('input'));
         // 배경
         $('btnApplyBg').addEventListener('click',applyBgImage);
         $('btnClearBg').addEventListener('click',clearBgImage);
@@ -1459,7 +1649,7 @@ ${bodyIndented}
         setupQuickBar();
     }
 
-    function init(){ bind(); toggleInputs(); changeTheme(); toggleBorder(); applyPhoneWidth(); applyContainerMode(); applyBubbleShape(); applyFont(); updateMsgCount(); }
+    function init(){ bind(); toggleInputs(); changeTheme(); toggleBorder(); applyPhoneWidth(); applyContainerMode(); applyBubbleShape(); applyFont(); applyFontSize(); updateMsgCount(); refreshPresetOptions(); }
     init();
 })();
 </script>
